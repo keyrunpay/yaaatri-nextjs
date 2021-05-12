@@ -41,6 +41,9 @@ const DestinationSectionWrapper = styled.div`
       font-size: 28px;
       font-weight: 700;
       color: var(--text-black);
+      @media (max-width: 767px) {
+        font-size: 16px;
+      }
     }
   }
 

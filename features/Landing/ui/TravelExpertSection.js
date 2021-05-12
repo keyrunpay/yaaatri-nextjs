@@ -61,6 +61,9 @@ const TravelExpertSectionWrapper = styled.div`
       font-size: 28px;
       font-weight: 700;
       color: var(--text-black);
+      @media (max-width: 767px) {
+        font-size: 16px;
+      }
     }
   }
 
@@ -113,6 +116,9 @@ const TravelExpertSectionWrapper = styled.div`
         text-align: center;
         font-size: 16px;
         color: var(--text-black);
+        @media (max-width: 767px) {
+          font-size: 12px;
+        }
       }
     }
 

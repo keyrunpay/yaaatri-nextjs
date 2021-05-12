@@ -49,6 +49,10 @@ const HeroSectionWrapper = styled.div`
 
     .hero-image-wrap {
       width: 480px;
+
+      @media (max-width: 990px) {
+        width: 280px;
+      }
     }
   }
 
@@ -59,8 +63,13 @@ const HeroSectionWrapper = styled.div`
     color: var(--text-black);
     width: 420px;
 
+    @media (max-width: 990px) {
+      font-size: 36px;
+    }
+
     @media (max-width: 767px) {
-      font-size: 42px;
+      font-size: 36px;
+      padding: 16px 0 0 0;
       width: auto;
     }
   }

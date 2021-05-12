@@ -99,6 +99,9 @@ const HotStoriesSectionWrapper = styled.div`
       font-size: 28px;
       font-weight: 700;
       color: var(--text-black);
+      @media (max-width: 767px) {
+        font-size: 16px;
+      }
     }
   }
 
@@ -110,7 +113,7 @@ const HotStoriesSectionWrapper = styled.div`
     cursor: pointer;
     margin-right: 5px;
     .title {
-      font-size: 16px;
+      font-size: 14px;
       color: var(--text-black);
       font-weight: 600;
       margin: 3px 0;

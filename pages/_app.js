@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
     <React.Fragment>
       <GlobalStyle />
       <Head>
-        <title>Yaaatri | Travellers Social Network</title>
+        <title>Travellers Social Network</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Provider store={store}>
