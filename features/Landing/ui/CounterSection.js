@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import KButtonOrange from "../../../core/components/KButtonOrange";
 
 export default function CounterSection() {
   return (
@@ -29,6 +30,13 @@ export default function CounterSection() {
             <div className="label">Users</div>
           </div>
         </div>
+
+        <div className="cta-section">
+          <KButtonOrange className="cta-join-us">Join Us</KButtonOrange>
+          <KButtonOrange className="cta-send-feedback">
+            Send Feedback
+          </KButtonOrange>
+        </div>
       </div>
     </CounterSectionWrapper>
   );
@@ -39,13 +47,38 @@ const CounterSectionWrapper = styled.div`
   background: var(--primary);
   border-radius: 12px 12px 0 0;
 
+  .cta-section {
+    text-align: center;
+    margin-bottom: 58px;
+
+    @media (max-width: 600px) {
+      text-align: left;
+    }
+  }
+  .cta-join-us {
+    height: 40px;
+    width: 150px;
+    margin-right: 12px;
+    font-size: 12px;
+    box-shadow: var(--shadow-figma);
+  }
+
+  .cta-send-feedback {
+    height: 38px;
+    background: transparent;
+    border: 1px solid var(--secondary);
+    width: 150px;
+    font-size: 12px;
+    box-shadow: var(--shadow-figma);
+  }
+
   .container {
     border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
   }
 
   .counter-wrapper {
     text-align: center;
-    margin: 24px 0 0 0;
+    margin-top: 24px;
 
     @media (max-width: 600px) {
       text-align: left;
@@ -61,7 +94,6 @@ const CounterSectionWrapper = styled.div`
 
     &:last-of-type {
       margin-right: 0;
-      margin-bottom: 58px;
     }
 
     .count {
