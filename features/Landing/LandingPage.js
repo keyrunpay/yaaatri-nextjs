@@ -4,6 +4,7 @@ import DestinationSection from "./ui/DestinationSection";
 import TravelExpertSection from "./ui/TravelExpertSection";
 import HeroSection from "./ui/HeroSection";
 import HotStoriesSection from "./ui/HotStoriesSection";
+import CounterSection from "./ui/CounterSection";
 
 export default function LandingPage() {
   return (
@@ -13,6 +14,7 @@ export default function LandingPage() {
       <AdventureSection />
       <HotStoriesSection />
       <TravelExpertSection />
+      <CounterSection />
     </div>
   );
 }

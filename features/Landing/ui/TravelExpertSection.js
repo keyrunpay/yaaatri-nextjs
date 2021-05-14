@@ -53,7 +53,7 @@ const TravelExpertCard = () => {
 };
 
 const TravelExpertSectionWrapper = styled.div`
-  margin-bottom: 36px;
+  margin-bottom: 48px;
 
   header {
     margin-bottom: 16px;

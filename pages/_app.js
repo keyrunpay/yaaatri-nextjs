@@ -7,6 +7,7 @@ import { createWrapper } from "next-redux-wrapper";
 import store from "../redux/store";
 import GlobalStyle from "../core/globals/style.global";
 import NavBar from "../core/ui/NavBar";
+import Footer from "../core/ui/Footer";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <NavBar />
         <Component {...pageProps} />
+        <Footer />
       </Provider>
     </React.Fragment>
   );
