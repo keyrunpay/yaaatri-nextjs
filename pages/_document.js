@@ -41,7 +41,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,700;1,600&family=Poppins:wght@600;700&display=swap"
             rel="stylesheet"
           />
-          <link rel="stylesheet" href="/multi_slider.css" />
         </Head>
         <body>
           <Main />

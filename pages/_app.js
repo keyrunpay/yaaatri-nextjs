@@ -11,6 +11,7 @@ import Footer from "../core/ui/Footer";
 import useLogin from "../core/hooks/useLogin";
 import "antd/dist/antd.css";
 import "../styles/ckEditor.css";
+import "../styles/slider.css";
 
 function MyApp({ Component, pageProps }) {
   const { setToReduxFromLS } = useLogin();
