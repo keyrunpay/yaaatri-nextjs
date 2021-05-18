@@ -1,5 +1,5 @@
-import "typeface-poppins";
-import "typeface-montserrat";
+// import "typeface-poppins";
+// import "typeface-montserrat";
 import React from "react";
 import Head from "next/head";
 import { Provider } from "react-redux";
