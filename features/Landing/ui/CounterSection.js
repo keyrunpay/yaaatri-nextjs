@@ -98,6 +98,7 @@ const CounterSectionWrapper = styled.div`
 
     .count {
       font-size: 22px;
+      color: #fff;
     }
 
     .label {

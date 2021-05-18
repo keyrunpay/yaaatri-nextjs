@@ -4,6 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import KButtonOrange from "../components/KButtonOrange";
 import { useGoogleLogin } from "react-google-login";
 import useLogin from "../hooks/useLogin";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 export const GOOGLE_CLIENT_ID =
   "415303719139-sea932dqp0dii9q5r6bqc35g1s5uos11.apps.googleusercontent.com";
 
@@ -34,8 +35,15 @@ export default function LoginBox({ visible, onClose }) {
           </header>
           <div className="cta-button">
             <KButtonOrange onClick={signIn} className="cta-google-btn">
-              <FaGoogle />
-              <span>Login with google</span>
+              {!loginLoading && loaded && (
+                <>
+                  <FaGoogle />
+                  <span>Login with google</span>
+                </>
+              )}
+              {(loginLoading || !loaded) && (
+                <AiOutlineLoading3Quarters className="rotate" />
+              )}
             </KButtonOrange>
           </div>
         </div>
