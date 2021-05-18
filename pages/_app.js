@@ -8,8 +8,17 @@ import store from "../redux/store";
 import GlobalStyle from "../core/globals/style.global";
 import NavBar from "../core/ui/NavBar";
 import Footer from "../core/ui/Footer";
+import useLogin from "../core/hooks/useLogin";
+import "antd/dist/antd.css";
+import "../styles/ckEditor.css";
 
 function MyApp({ Component, pageProps }) {
+  const { setToReduxFromLS } = useLogin();
+
+  React.useEffect(() => {
+    setToReduxFromLS();
+  }, []);
+
   return (
     <React.Fragment>
       <GlobalStyle />

@@ -1,9 +1,12 @@
+import { Spin } from "antd";
+import Link from "next/link";
 import React from "react";
-import { FiMessageCircle, FiUser } from "react-icons/fi";
 import styled from "styled-components";
+import { fixLink } from "../../../core/helpers/file_helper";
+import KStoryItem from "../../../core/ui/KStoryItem";
 import MultiCarousel from "../../../core/ui/MultiCarousel";
 
-export default function HotStoriesSection() {
+export default function HotStoriesSection({ landing }) {
   return (
     <HotStoriesSectionWrapper>
       <div className="container">
@@ -12,78 +15,24 @@ export default function HotStoriesSection() {
         </header>
 
         <div className="cards-wrapper">
-          <MultiCarousel maxItem={4} dots={false}>
-            <div className="story-card">
-              <div className="img-wrapper">
-                <img src="images/story1.png" alt="" />
-              </div>
-              <h2 className="title">Poon Hill Trek</h2>
-              <div className="flex">
-                <p className="story-desc">
-                  <FiUser /> Kiran
-                </p>
-                <p className="story-desc">
-                  <FiMessageCircle /> 227
-                </p>
-              </div>
-            </div>
-            <div className="story-card">
-              <div className="img-wrapper">
-                <img src="images/story2.png" alt="" />
-              </div>
-              <h2 className="title">Thrilling @EBC</h2>
-              <div className="flex">
-                <p className="story-desc">
-                  <FiUser /> Kiran
-                </p>
-                <p className="story-desc">
-                  <FiMessageCircle /> 227
-                </p>
-              </div>
-            </div>
-            <div className="story-card">
-              <div className="img-wrapper">
-                <img src="images/story3.png" alt="" />
-              </div>
-              <h2 className="title">14 days at upper mustang</h2>
-              <div className="flex">
-                <p className="story-desc">
-                  <FiUser /> Kiran
-                </p>
-                <p className="story-desc">
-                  <FiMessageCircle /> 227
-                </p>
-              </div>
-            </div>
-            <div className="story-card">
-              <div className="img-wrapper">
-                <img src="images/story4.png" alt="" />
-              </div>
-              <h2 className="title">My Canoying Experience</h2>
-              <div className="flex">
-                <p className="story-desc">
-                  <FiUser /> Kiran
-                </p>
-                <p className="story-desc">
-                  <FiMessageCircle /> 227
-                </p>
-              </div>
-            </div>
-            <div className="story-card">
-              <div className="img-wrapper">
-                <img src="/trip.png" alt="" />
-              </div>
-              <h2 className="title">Kori Village Solo Trek</h2>
-              <div className="flex">
-                <p className="story-desc">
-                  <FiUser /> Kiran
-                </p>
-                <p className="story-desc">
-                  <FiMessageCircle /> 227
-                </p>
-              </div>
-            </div>
-          </MultiCarousel>
+          {landing.status === "loading" && <Spin size="large" />}
+          {landing.status === "data" && (
+            <MultiCarousel maxItem={4} dots={false}>
+              {landing?.data?.story?.map((el) => (
+                <Link href="story/[storyIdentifier]" as={`story/${el?.slug}`}>
+                  <a>
+                    <KStoryItem
+                      key={el?._id}
+                      title={el?.title}
+                      image={fixLink(el?.thumb_image, "4x3.png")}
+                      user_name={el?.author?.full_name}
+                      comment_count={el?.views || 0}
+                    />
+                  </a>
+                </Link>
+              ))}
+            </MultiCarousel>
+          )}
         </div>
       </div>
     </HotStoriesSectionWrapper>
@@ -101,56 +50,6 @@ const HotStoriesSectionWrapper = styled.div`
       color: var(--text-black);
       @media (max-width: 767px) {
         font-size: 16px;
-      }
-    }
-  }
-
-  .story-card {
-    background: rgba(238, 238, 238, 0.4);
-    padding: 9px;
-    border-radius: var(--br);
-    transition: var(--tsn);
-    cursor: pointer;
-    margin-right: 5px;
-    .title {
-      font-size: 14px;
-      color: var(--text-black);
-      font-weight: 600;
-      margin: 3px 0;
-    }
-
-    .story-desc {
-      font-size: 12px;
-      margin-right: 10px;
-      font-weight: 500;
-      svg {
-        stroke: var(--primary);
-        stroke-width: 3px;
-      }
-    }
-
-    .img-wrapper {
-      overflow: hidden;
-      border-radius: var(--br);
-      width: 100%;
-      padding-top: 75%;
-      position: relative;
-    }
-
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: var(--br);
-      transition: var(--tsn);
-    }
-
-    &:hover {
-      img {
-        transition: 0.2s;
-        transform: scale(1.05);
       }
     }
   }

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import MultiCarousel from "../../../core/ui/MultiCarousel";
+import Link from "next/link";
 
 export default function DestinationSection() {
   const sliderRef = React.useRef(null);
@@ -11,22 +11,36 @@ export default function DestinationSection() {
           <h1>Discover the touch of nature</h1>
         </header>
 
-        {/* <MultiCarousel maxItem={4}> */}
         <div className="cards-wrapper">
-          <div className="destination-card">
-            <img src="images/trek1.png" alt="" />
-          </div>
-          <div className="destination-card">
-            <img src="images/trek2.png" alt="" />
-          </div>
-          <div className="destination-card">
-            <img src="images/trek5.png" alt="" />
-          </div>
-          <div className="destination-card">
-            <img src="images/trek4.png" alt="" />
-          </div>
+          <Link href="/story">
+            <a>
+              <div className="destination-card">
+                <img src="images/trek1.png" alt="" />
+              </div>
+            </a>
+          </Link>
+          <Link href="/story">
+            <a>
+              <div className="destination-card">
+                <img src="images/trek2.png" alt="" />
+              </div>
+            </a>
+          </Link>
+          <Link href="/story">
+            <a>
+              <div className="destination-card">
+                <img src="images/trek5.png" alt="" />
+              </div>
+            </a>
+          </Link>
+          <Link href="/story">
+            <a>
+              <div className="destination-card">
+                <img src="images/trek4.png" alt="" />
+              </div>
+            </a>
+          </Link>
         </div>
-        {/* </MultiCarousel> */}
       </div>
     </DestinationSectionWrapper>
   );

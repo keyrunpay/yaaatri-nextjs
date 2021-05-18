@@ -4,6 +4,7 @@ const initState = {
   id: "",
   role: [],
   email: "",
+  image: "",
   name: "",
   isLogged: false,
 };

@@ -66,8 +66,9 @@ export const GlobalStyle = createGlobalStyle`
     --tab: 998px;
     --tsn: 0.2s ease-in-out;
   }
-  h1,h2,h3,h4,h5,h6{
+  h1,h2,h3,h4,h5,h6,.fp{
     font-family: Poppins, "sans-serif";
+    font-weight: bold;
     margin: 0;
   }
   body{
@@ -102,6 +103,24 @@ export const GlobalStyle = createGlobalStyle`
     }
   }
 
+  .rotate{
+    animation: rotate linear 0.7s infinite;
+  }
+  @keyframes rotate {
+    0% {
+      transform: scale(1) rotate(0);
+    }
+
+    50%{
+      transform: scale(0.8) rotate(180deg);
+    }
+
+    100% {
+      transform: scale(1) rotate(360deg);
+    }
+  }
+
+
 
   .container{
       width: 1024px;
@@ -121,6 +140,16 @@ export const GlobalStyle = createGlobalStyle`
           justify-content: center;
       }
   }
+
+  .ck-editor__editable {
+
+    border: 1px solid #ddd !important;
+
+      &:not(.ck-editor__nested-editable) {
+        height: calc(100vh - 230px) !important;
+      }
+  }
+
 `;
 
 export default GlobalStyle;
