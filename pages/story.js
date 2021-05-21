@@ -1,2 +1,2 @@
-import Story from "../features/Story/Story";
+import Story from "../src/features/Story/Story";
 export default Story;

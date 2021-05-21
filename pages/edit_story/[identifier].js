@@ -1,2 +1,2 @@
-import EditStory from "../../features/EditStory/EditStory";
+import EditStory from "../../src/features/EditStory/EditStory";
 export default EditStory;

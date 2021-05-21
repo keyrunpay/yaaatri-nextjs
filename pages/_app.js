@@ -4,14 +4,14 @@ import React from "react";
 import Head from "next/head";
 import { Provider } from "react-redux";
 import { createWrapper } from "next-redux-wrapper";
-import store from "../redux/store";
-import GlobalStyle from "../core/globals/style.global";
-import NavBar from "../core/ui/NavBar";
-import Footer from "../core/ui/Footer";
-import useLogin from "../core/hooks/useLogin";
+import GlobalStyle from "../src/core/globals/style.global";
+import NavBar from "../src/core/ui/NavBar";
+import Footer from "../src/core/ui/Footer";
 import "antd/dist/antd.css";
-import "../styles/ckEditor.css";
-import "../styles/slider.css";
+import "../src/core/globals/ckEditor.css";
+import "../src/core/globals/slider.css";
+import store from "../src/redux/store";
+import useLogin from "../src/core/hooks/useLogin";
 
 function MyApp({ Component, pageProps }) {
   const { setToReduxFromLS } = useLogin();
@@ -26,6 +26,10 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Travellers Social Network</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+        />
       </Head>
       <Provider store={store}>
         <NavBar />

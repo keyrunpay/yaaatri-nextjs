@@ -150,6 +150,26 @@ export const GlobalStyle = createGlobalStyle`
       }
   }
 
+  .ant-comment-inner{
+    padding: 8px 0 !important;
+  }
+
+  .ant-comment-actions{
+    margin-top: 0px !important;
+  }
+
+  /* .ant-comment-avatar{
+    margin-right: 4px !important;
+  }
+
+  .ant-comment-nested{
+    margin-left: 36px !important;
+  } */
+
+  .ant-comment-content-author{
+    margin-bottom: 0 !important;
+  }
+
 `;
 
 export default GlobalStyle;

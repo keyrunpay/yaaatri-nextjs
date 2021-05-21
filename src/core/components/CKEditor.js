@@ -13,7 +13,6 @@ export default function CkEditor(props) {
       DecoupledEditor: require("@ckeditor/ckeditor5-build-decoupled-document"),
     };
     setEditorLoaded(true);
-
     return () => {
       editorRef.current = null;
     };

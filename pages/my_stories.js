@@ -1,2 +1,2 @@
-import MyStories from "../features/MyStories/MyStories";
+import MyStories from "../src/features/MyStories/MyStories";
 export default MyStories;

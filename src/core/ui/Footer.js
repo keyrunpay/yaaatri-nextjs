@@ -73,9 +73,8 @@ export default function Footer() {
 const FooterWrapper = styled.div`
   padding-top: 58px;
   background-color: var(--primary);
-  background-image: url("images/bg.svg");
+  background-image: url("/images/bg.svg");
   background-repeat: no-repeat;
-  /* background-size: cover; */
   background-position: bottom;
 
   .title {

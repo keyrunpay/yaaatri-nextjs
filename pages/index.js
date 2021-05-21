@@ -1,2 +1,2 @@
-import LandingPage from "../features/Landing/LandingPage";
+import LandingPage from "../src/features/Landing/LandingPage";
 export default LandingPage;
