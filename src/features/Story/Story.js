@@ -9,6 +9,7 @@ import { onAddLike } from "../../services/like.service";
 import CommentDrawer from "./ui/CommentDrawer";
 import CustomizedStory from "./ui/CustomizedStory";
 import StoryReader from "./ui/StoryReader";
+import AboutAuthor from "./ui/AboutAuthor";
 
 export default function Story({
   _id,
@@ -47,7 +48,7 @@ export default function Story({
       setLikeLoading(false);
       message.error(decodeApiMessage(err));
     }
-  }, [setLikeLoading, setLikeArray, user]);
+  }, [setLikeLoading, setLikeArray, user, _id]);
 
   const addNewComment = React.useCallback(
     ({ comment, identifier }) => {
@@ -91,11 +92,15 @@ export default function Story({
   );
 
   React.useEffect(() => {
+    setCommentArray(comments);
+    setLikeArray(likes);
+  }, [_id]);
+
+  React.useEffect(() => {
     let comment_count = commentArray?.length;
     commentArray?.forEach((el) => {
       comment_count += el?.replies?.length || 0;
     });
-
     setCommentCount(comment_count);
   }, [commentArray]);
 
@@ -149,6 +154,11 @@ export default function Story({
           </div>
         </div>
       </div>
+      <AboutAuthor
+        author_image={author?.display_image}
+        author_name={author?.full_name}
+        created_at={author?.created_at}
+      />
     </StoryWrapper>
   );
 }

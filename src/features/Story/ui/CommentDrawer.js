@@ -20,7 +20,7 @@ export default function CommentDrawer({
   const commentRef = React.useRef(null);
   const [commentLoading, setCommentLoading] = React.useState(false);
 
-  const onComment = async () => {
+  const onComment = React.useCallback(async () => {
     const comment = commentRef.current.value;
     setCommentLoading(true);
     try {
@@ -33,7 +33,7 @@ export default function CommentDrawer({
       message.error(decodeApiMessage(err));
       setCommentLoading(false);
     }
-  };
+  }, [setCommentLoading, story_id]);
 
   return (
     <Drawer
