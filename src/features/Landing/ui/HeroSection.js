@@ -8,7 +8,7 @@ export default function HeroSection() {
     <HeroSectionWrapper>
       <div className="container flex jcsb ci">
         <aside className="hero-image">
-          <img className="hero-image-wrap" src="/hero.png" />
+          <img className="hero-image-wrap" src="/logo.png" />
         </aside>
 
         <aside className="hero-content">

@@ -46,7 +46,7 @@ export default function Footer() {
 
         <div className="footer-social">
           <div className="left">
-            <h1 className="title">Travel</h1>
+            <h1 className="title">Yaaatri</h1>
           </div>
           <div className="right">
             <div className="social-list">

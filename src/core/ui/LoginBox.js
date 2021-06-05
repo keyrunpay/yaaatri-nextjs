@@ -31,7 +31,7 @@ export default function LoginBox({ visible, onClose }) {
         <div className="login-box fade__in__animation">
           <header>
             <img src="login.svg" alt="" />
-            <h1 className="title">Login to Ghumdim</h1>
+            <h1 className="title">Login to Yaaatri</h1>
           </header>
           <div className="cta-button">
             <KButtonOrange onClick={signIn} className="cta-google-btn">

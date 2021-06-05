@@ -9,11 +9,12 @@ import KImageCropperModal from "../../core/components/KImageCropperModal";
 import { fixLink, getUrlFromFile } from "../../core/helpers/file_helper";
 import useAuthInfo from "../../core/hooks/useAuthInfo";
 import MultiCarousel from "../../core/ui/MultiCarousel";
-import { onAddStory, onUpdateStory } from "../../services/story.service";
+import { onAddStory } from "../../services/story.service";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import WriteStoryDrawer from "./WriteStoryDrawer";
 import KButtonOrange from "../../core/components/KButtonOrange";
 import { useRouter } from "next/router";
+import KSpinner from "../../core/components/KSpinner";
 
 export default function WriteStory() {
   const titleRef = React.useRef(null);
@@ -28,26 +29,22 @@ export default function WriteStory() {
   const user = useAuthInfo();
   const router = useRouter();
 
-  const [storyIdentifier, setStoryIdentifier] = React.useState(null);
+  const [contentLoaded, setContentLoaded] = React.useState(false);
   const [selectedThumb, setSelectedThumb] = React.useState(null);
   const [selectedCover, setSelectedCover] = React.useState(null);
   const [addLoading, setAddLoading] = React.useState(false);
-  const [updateLoading, setUpdateLoading] = React.useState(false);
   const [showWriteStory, setShowWriteStory] = React.useState(false);
 
   React.useEffect(() => {
-    if (!!storyIdentifier) {
+    if (contentLoaded) {
       localStorage.setItem("story_content", JSON.stringify(storyContent));
-      localStorage.setItem("story_identifier", storyIdentifier);
+    } else {
+      setContentLoaded(true);
     }
-  }, [storyContent, storyIdentifier]);
+  }, [storyContent]);
 
   const loadFromLS = () => {
-    const si = localStorage.getItem("story_identifier");
     const sc = localStorage.getItem("story_content");
-    if (!!si) {
-      setStoryIdentifier(si);
-    }
     if (!!sc) {
       setStoryContent(JSON.parse(sc));
     }
@@ -59,12 +56,6 @@ export default function WriteStory() {
 
   const handleThumbUpload = async (file) => {
     try {
-      if (!storyIdentifier) {
-        setAddLoading(true);
-        const res = await onAddStory(storyContent);
-        setAddLoading(false);
-        setStoryIdentifier(res.identifier);
-      }
       const src = await getUrlFromFile(file);
       setSelectedThumb(src);
     } catch (err) {
@@ -74,12 +65,6 @@ export default function WriteStory() {
 
   const handleCoverUpload = async (file) => {
     try {
-      if (!storyIdentifier) {
-        setAddLoading(true);
-        const res = await onAddStory(storyContent);
-        setAddLoading(false);
-        setStoryIdentifier(res.identifier);
-      }
       const src = await getUrlFromFile(file);
       setSelectedCover(src);
     } catch (err) {
@@ -89,41 +74,24 @@ export default function WriteStory() {
 
   const handleEditStory = async () => {
     try {
-      if (!storyIdentifier) {
-        setAddLoading(true);
-        const res = await onAddStory(storyContent);
-        setAddLoading(false);
-        setStoryIdentifier(res.identifier);
-      }
       setShowWriteStory(true);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleUpdateStory = async (payload) => {
-    setUpdateLoading(true);
-    try {
-      await onUpdateStory(storyIdentifier, payload);
-      setUpdateLoading(false);
-    } catch (err) {
-      setUpdateLoading(false);
-    }
-  };
-
   const handlePublishStory = async () => {
-    setUpdateLoading(true);
+    setAddLoading(true);
     try {
-      await onUpdateStory(storyIdentifier, {
+      await onAddStory({
         ...storyContent,
         status: "Published",
       });
-      setUpdateLoading(false);
-      localStorage.removeItem("story_identifier");
+      setAddLoading(false);
       localStorage.removeItem("story_content");
       router.push("/my_stories");
     } catch (err) {
-      setUpdateLoading(false);
+      setAddLoading(false);
     }
   };
 
@@ -145,16 +113,13 @@ export default function WriteStory() {
 
       <CustomizedStoryWrapper>
         <div className="container">
-          <div className="flex ci">
+          <div className="flex ci jcsb">
             <h1 className="title">Your story thubnails</h1>
             <Tooltip title="Change your thumbnail" placement="top">
               <KFileUpload onUpload={handleThumbUpload}>
-                <KButtonBlue className="thumbnail-change-btn">
-                  {addLoading && (
-                    <AiOutlineLoading3Quarters className="rotate" />
-                  )}
-                  {!addLoading && <FiImage />}
-                </KButtonBlue>
+                <KButtonOrange className="thumbnail-change-btn cta">
+                  <FiImage /> <p>Upload Thumb</p>
+                </KButtonOrange>
               </KFileUpload>
             </Tooltip>
           </div>
@@ -218,10 +183,9 @@ export default function WriteStory() {
           </div>
           <div className="cover">
             <KFileUpload onUpload={handleCoverUpload}>
-              <KButtonBlue className="thumbnail-change-btn">
-                {addLoading && <AiOutlineLoading3Quarters className="rotate" />}
-                {!addLoading && <FiImage />}
-              </KButtonBlue>
+              <KButtonOrange className="thumbnail-change-btn cta">
+                <FiImage /> <p>Upload Cover</p>
+              </KButtonOrange>
             </KFileUpload>
             <img
               className="cover-image"
@@ -233,15 +197,11 @@ export default function WriteStory() {
       </StoryReaderWrapper>
 
       <div className="container story-body">
-        <div className="cta-wrapper flex ci">
+        <div className="cta-wrapper flex ci jcsb">
           <h1>Your Story Will Go Below</h1>
-          <KButtonBlue onClick={handleEditStory} className="cta">
-            {addLoading ? (
-              <AiOutlineLoading3Quarters className="rotate" />
-            ) : (
-              <span>Edit Story</span>
-            )}
-          </KButtonBlue>
+          <KButtonOrange onClick={handleEditStory} className="cta">
+            <span>Edit Story</span>
+          </KButtonOrange>
         </div>
 
         {!!storyContent?.body ? (
@@ -250,61 +210,39 @@ export default function WriteStory() {
             dangerouslySetInnerHTML={{ __html: storyContent?.body }}
           ></div>
         ) : (
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae
-            soluta officiis eaque voluptate sequi ut laborum consequuntur facere
-            nostrum alias eveniet blanditiis totam aspernatur doloribus
-            temporibus dolor culpa, quisquam corrupti animi dolore amet deserunt
-            nam recusandae perspiciatis. Impedit, tempore tempora in sunt quod
-            facilis saepe recusandae sit quisquam nostrum! Voluptatem.
-          </p>
+          <p>Your story content goes here...</p>
         )}
 
         <WriteStoryDrawer
-          visible={showWriteStory && !!storyIdentifier}
+          visible={showWriteStory}
           onClose={() => setShowWriteStory(false)}
-          name={storyIdentifier}
           body={storyContent?.body}
           onSave={(body) => {
             setStoryContent((pC) => ({ ...pC, body }));
             setShowWriteStory(false);
-            handleUpdateStory({
-              ...storyContent,
-              body,
-            });
           }}
         />
       </div>
 
       <KImageCropperModal
-        visible={!!selectedThumb && !!storyIdentifier}
+        visible={!!selectedThumb}
         ratio={4 / 3}
         onCancel={() => setSelectedThumb(null)}
         src={selectedThumb}
         sub_path="story_thumb"
-        file_name={storyIdentifier}
         onCompleted={(res) => {
           setStoryContent((pC) => ({ ...pC, thumb_image: res.path }));
-          handleUpdateStory({
-            ...storyContent,
-            thumb_image: res.path,
-          });
         }}
       />
 
       <KImageCropperModal
-        visible={!!selectedCover && !!storyIdentifier}
+        visible={!!selectedCover}
         ratio={2 / 1}
         onCancel={() => setSelectedCover(null)}
         src={selectedCover}
         sub_path="story_cover"
-        file_name={storyIdentifier}
         onCompleted={(res) => {
           setStoryContent((pC) => ({ ...pC, cover_image: res.path }));
-          handleUpdateStory({
-            ...storyContent,
-            cover_image: res.path,
-          });
         }}
       />
 
@@ -312,24 +250,21 @@ export default function WriteStory() {
         <div className="status-wrapper">
           <div className="sts">Story Status</div>
           <div className="flex ci">
-            {(addLoading || updateLoading) && (
-              <AiOutlineLoading3Quarters className="rotate" />
-            )}
-            {!addLoading && !updateLoading && (
-              <FiCheck style={{ color: "green" }} />
-            )}
+            {addLoading && <AiOutlineLoading3Quarters className="rotate" />}
+            {!addLoading && <FiCheck style={{ color: "green" }} />}
             <p>
               {addLoading && "Adding Story"}
-              {updateLoading && "Updating Story"}
-              {!updateLoading && !addLoading && "Saved"}
+              {!addLoading && "Saved"}
             </p>
           </div>
         </div>
 
         <div className="cta-wrapper">
-          <KButtonOrange onClick={handlePublishStory} className="cta-publish">
-            Publish Story
-          </KButtonOrange>
+          <KSpinner spinning={addLoading}>
+            <KButtonOrange onClick={handlePublishStory} className="cta-publish">
+              Publish Story
+            </KButtonOrange>
+          </KSpinner>
         </div>
       </div>
     </StoryWrapper>
@@ -371,6 +306,11 @@ const StoryWrapper = styled.div`
     }
   }
 
+  .cta {
+    font-weight: 500;
+    font-size: 11px;
+  }
+
   .story-body {
     padding: 36px 0;
     .cta-wrapper {
@@ -382,8 +322,13 @@ const StoryWrapper = styled.div`
   }
 
   .thumbnail-change-btn {
-    padding: 8px;
+    padding: 8px 15px;
     box-shadow: var(--shadow-figma);
+    display: flex;
+
+    p {
+      margin-left: 4px;
+    }
   }
   .editable {
     outline: none;

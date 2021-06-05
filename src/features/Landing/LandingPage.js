@@ -17,7 +17,7 @@ export default function LandingPage() {
   return (
     <div>
       <HeroSection />
-      <DestinationSection />
+      <DestinationSection landing={landing} />
       <HotStoriesSection landing={landing} />
       <AdventureSection />
       <TravelExpertSection />

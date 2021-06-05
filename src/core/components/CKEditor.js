@@ -23,7 +23,7 @@ export default function CkEditor(props) {
       <div id="toolbar-container"></div>
       <CKEditor
         editor={DecoupledEditor}
-        data={props.body || "<p>Write Blog here</p>"}
+        data={props.body || "<p></p>"}
         onInit={(editor) => {
           const toolbarContainer = document.querySelector("#toolbar-container");
           toolbarContainer.appendChild(editor.ui.view.toolbar.element);
@@ -31,7 +31,7 @@ export default function CkEditor(props) {
           editor.plugins.get("FileRepository").createUploadAdapter = function (
             loader
           ) {
-            return new MyUploadAdapter(loader, props.name);
+            return new MyUploadAdapter(loader);
           };
         }}
         onChange={(event, editor) => {
@@ -51,9 +51,8 @@ export default function CkEditor(props) {
 }
 
 class MyUploadAdapter {
-  constructor(loader, name) {
+  constructor(loader) {
     this.loader = loader;
-    this.name = name || Date.now();
     // this.url = baseUrl + "/upload";
   }
 
@@ -62,11 +61,7 @@ class MyUploadAdapter {
     return this.loader.file.then(
       (file) =>
         new Promise((resolve, reject) => {
-          onFileUpload(
-            file,
-            "story_body",
-            this.name + "_" + Date.now().toString().substr(-4)
-          )
+          onFileUpload(file, "story_body")
             .then((res) => {
               resolve({ default: res.url });
             })

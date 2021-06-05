@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps }) {
     <React.Fragment>
       <GlobalStyle />
       <Head>
-        <title>Travellers Social Network</title>
+        <title>Yaaatri | Travellers Social Network</title>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="viewport"

@@ -5,8 +5,7 @@ import CropperJS from "./KCropper";
 let croppedImage;
 
 export default function KImageCropperModal(props) {
-  const { src, visible, onCancel, ratio, sub_path, file_name, onCompleted } =
-    props;
+  const { src, visible, onCancel, ratio, sub_path, onCompleted } = props;
   const [loading, setLoading] = React.useState(false);
 
   const imageRef = React.useRef(null);
@@ -14,7 +13,7 @@ export default function KImageCropperModal(props) {
   const onUpload = async () => {
     setLoading(true);
     try {
-      const res = await onFileUpload(croppedImage, sub_path, file_name);
+      const res = await onFileUpload(croppedImage, sub_path);
       if (onCompleted) onCompleted(res);
       setLoading(false);
       onCancel();
@@ -25,11 +24,13 @@ export default function KImageCropperModal(props) {
   };
 
   const onCropComplete = (_) => {
-    imageRef.current.getCroppedCanvas().toBlob(
+    imageRef?.current?.getCroppedCanvas()?.toBlob(
       (blob) => {
-        blob.name = "croppedImage.png";
-        blob.lastModifiedDate = new Date();
-        croppedImage = blob;
+        if (blob) {
+          blob.name = "croppedImage.png";
+          blob.lastModifiedDate = new Date();
+          croppedImage = blob;
+        }
       },
       "image/png",
       1

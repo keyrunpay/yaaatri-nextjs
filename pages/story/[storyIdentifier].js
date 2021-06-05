@@ -6,7 +6,7 @@ import { onReadOneStorySSR } from "../../src/services/story.service";
 const page = (props) => (
   <>
     <Head>
-      <title>{props?.title || "Travelers Nepal"}</title>
+      <title>{props?.title || "Yaaatri"}</title>
       <meta
         property="og:type"
         content="Exploring the nepals destinations and stories"
@@ -27,7 +27,6 @@ export async function getServerSideProps({ query }) {
   let payload = { storyIdentifier };
   try {
     const res = await onReadOneStorySSR(storyIdentifier);
-    console.log(res);
     payload = {
       ...payload,
       ...res,
@@ -37,8 +36,7 @@ export async function getServerSideProps({ query }) {
       ...payload,
       error: err,
     };
-
-    console.log(err);
+    console.log("Error fetching story", err);
   }
   return {
     props: payload,

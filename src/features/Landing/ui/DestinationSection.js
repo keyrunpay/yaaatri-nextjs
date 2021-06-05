@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Link from "next/link";
+import { fixLink } from "../../../core/helpers/file_helper";
 
-export default function DestinationSection() {
+export default function DestinationSection({ landing }) {
   const sliderRef = React.useRef(null);
   return (
     <DestinationSectionWrapper>
@@ -12,6 +13,19 @@ export default function DestinationSection() {
         </header>
 
         <div className="cards-wrapper">
+          {landing?.data?.destination?.map((el) => (
+            <Link
+              href="/destination/[identifier]"
+              as={`/destination/${el?.slug}`}
+            >
+              <a>
+                <div className="destination-card">
+                  <img src={fixLink(el?.thumb_image, "/4x3.png")} alt="" />
+                </div>
+              </a>
+            </Link>
+          ))}
+          {/* 
           <Link href="/story">
             <a>
               <div className="destination-card">
@@ -39,7 +53,7 @@ export default function DestinationSection() {
                 <img src="images/trek4.png" alt="" />
               </div>
             </a>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </DestinationSectionWrapper>

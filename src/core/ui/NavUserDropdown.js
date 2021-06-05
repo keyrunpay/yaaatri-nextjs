@@ -15,6 +15,8 @@ export default function NavUserDropdown({ visible, onClose }) {
 
   const gotoWriteStory = () => router.push("/write_story");
 
+  const gotoWriteDestination = () => router.push("/write_destination");
+
   const handleLinkItemClick = React.useCallback(
     (fn) => {
       onClose();
@@ -53,6 +55,17 @@ export default function NavUserDropdown({ visible, onClose }) {
               <FiEdit />
               <span>Write Story</span>
             </div>
+
+            {user?.isEditor && (
+              <div
+                onClick={() => handleLinkItemClick(gotoWriteDestination)}
+                className="link-item"
+              >
+                <FiEdit />
+                <span>Write Destination</span>
+              </div>
+            )}
+
             <div className="link-item">
               <FiBell />
               <span>Notification</span>

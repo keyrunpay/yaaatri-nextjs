@@ -18,7 +18,7 @@ export default function NavBar() {
           <aside className="logo">
             <Link href="/">
               <a>
-                <h1>Travel</h1>
+                <h1>Yaaatri</h1>
               </a>
             </Link>
           </aside>
